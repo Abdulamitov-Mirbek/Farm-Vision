@@ -1,0 +1,504 @@
+/* client/src/pages/Settings/Payment.css */
+
+.payment-settings {
+  padding: 24px;
+  min-height: 100vh;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Светлая тема (по умолчанию) */
+.payment-settings {
+  background-color: #f9fafb;
+  color: #111827;
+}
+
+/* Темная тема */
+.payment-settings.dark-theme {
+  background-color: #111827;
+  color: #f3f4f6;
+}
+
+.payment-header {
+  margin-bottom: 24px;
+}
+
+.payment-header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+/* Темная тема для заголовка */
+.dark-theme .payment-header h1 {
+  color: #f9fafb;
+}
+
+.payment-description {
+  color: #6b7280;
+}
+
+/* Темная тема для описания */
+.dark-theme .payment-description {
+  color: #9ca3af;
+}
+
+.payment-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Card компонент */
+.current-plan-card,
+.payment-card,
+.payment-history-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+/* Темная тема для карточек */
+.dark-theme .current-plan-card,
+.dark-theme .payment-card,
+.dark-theme .payment-history-card {
+  background-color: #1f2937;
+  border-color: #374151;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.plan-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.plan-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* Темная тема для заголовков в карточках */
+.dark-theme h2,
+.dark-theme .plan-header h2 {
+  color: #f9fafb;
+}
+
+.plan-badge {
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.plan-badge.premium {
+  background-color: #f3e8ff;
+  color: #9333ea;
+  border: 1px solid #e9d5ff;
+}
+
+/* Темная тема для premium бейджа */
+.dark-theme .plan-badge.premium {
+  background-color: #581c87;
+  color: #d8b4fe;
+  border-color: #6b21a5;
+}
+
+.plan-price {
+  margin-bottom: 16px;
+}
+
+.plan-price .price {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+/* Темная тема для цены */
+.dark-theme .plan-price .price {
+  color: #f9fafb;
+}
+
+.plan-price .period {
+  color: #6b7280;
+  font-size: 16px;
+}
+
+/* Темная тема для периода */
+.dark-theme .plan-price .period {
+  color: #9ca3af;
+}
+
+.plan-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.plan-features li {
+  padding: 8px 0;
+  color: #4b5563;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Темная тема для списка преимуществ */
+.dark-theme .plan-features li {
+  color: #d1d5db;
+}
+
+.plan-features li span {
+  color: #10b981;
+}
+
+.payment-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.payment-card-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.commission-badge {
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+/* Темная тема для комиссии */
+.dark-theme .commission-badge {
+  background-color: #064e3b;
+  color: #6ee7b7;
+  border-color: #065f46;
+}
+
+.bank-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detail-row {
+  display: flex;
+  align-items: flex-start;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+/* Темная тема для строк деталей */
+.dark-theme .detail-row {
+  border-color: #374151;
+}
+
+.detail-label {
+  min-width: 120px;
+  font-weight: 500;
+  color: #4b5563;
+}
+
+/* Темная тема для лейблов */
+.dark-theme .detail-label {
+  color: #9ca3af;
+}
+
+.detail-value {
+  color: #111827;
+}
+
+/* Темная тема для значений */
+.dark-theme .detail-value {
+  color: #f3f4f6;
+}
+
+.card-number-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.card-number {
+  font-family: monospace;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Темная тема для номера карты */
+.dark-theme .card-number {
+  color: #f3f4f6;
+}
+
+.copy-btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  background-color: #f3f4f6;
+  color: #374151;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+/* Темная тема для кнопки копирования */
+.dark-theme .copy-btn {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #e5e7eb;
+}
+
+.copy-btn:hover {
+  background-color: #e5e7eb;
+}
+
+/* Темная тема для hover */
+.dark-theme .copy-btn:hover {
+  background-color: #4b5563;
+}
+
+.copy-btn.copied {
+  background-color: #10b981;
+  color: white;
+  border-color: #059669;
+}
+
+.amount-suggestion {
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background-color: #f9fafb;
+}
+
+/* Темная тема для блока сумм */
+.dark-theme .amount-suggestion {
+  background-color: #111827;
+  border-color: #374151;
+}
+
+.amount-title {
+  font-weight: 500;
+  margin-bottom: 12px;
+  color: #111827;
+}
+
+/* Темная тема для заголовка сумм */
+.dark-theme .amount-title {
+  color: #f3f4f6;
+}
+
+.amount-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.amount-btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  color: #374151;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+/* Темная тема для кнопок сумм */
+.dark-theme .amount-btn {
+  background-color: #1f2937;
+  border-color: #374151;
+  color: #e5e7eb;
+}
+
+.amount-btn:hover {
+  background-color: #f3f4f6;
+}
+
+/* Темная тема для hover кнопок сумм */
+.dark-theme .amount-btn:hover {
+  background-color: #374151;
+}
+
+.payment-instructions {
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+/* Темная тема для инструкций */
+.dark-theme .payment-instructions {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+.payment-instructions h4 {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #111827;
+}
+
+/* Темная тема для заголовка инструкций */
+.dark-theme .payment-instructions h4 {
+  color: #f3f4f6;
+}
+
+.payment-instructions ol {
+  padding-left: 20px;
+  margin: 0;
+  color: #4b5563;
+}
+
+/* Темная тема для текста инструкций */
+.dark-theme .payment-instructions ol {
+  color: #9ca3af;
+}
+
+.payment-instructions li {
+  margin: 4px 0;
+}
+
+.whatsapp-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #25D366;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.whatsapp-button:hover {
+  background-color: #128C7E;
+}
+
+.payment-note {
+  font-size: 14px;
+  text-align: center;
+  color: #6b7280;
+  margin-top: 8px;
+}
+
+/* Темная тема для примечания */
+.dark-theme .payment-note {
+  color: #9ca3af;
+}
+
+/* Таблица истории платежей */
+.payment-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+.payment-table th {
+  text-align: left;
+  padding: 12px;
+  font-weight: 500;
+  color: #6b7280;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Темная тема для заголовков таблицы */
+.dark-theme .payment-table th {
+  color: #9ca3af;
+  border-bottom-color: #374151;
+}
+
+.payment-table td {
+  padding: 12px;
+  color: #4b5563;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Темная тема для ячеек таблицы */
+.dark-theme .payment-table td {
+  color: #d1d5db;
+  border-bottom-color: #374151;
+}
+
+.payment-table tr:hover {
+  background-color: #f9fafb;
+}
+
+/* Темная тема для hover строки */
+.dark-theme .payment-table tr:hover {
+  background-color: #1f2937;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status.success {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+/* Темная тема для статуса */
+.dark-theme .status.success {
+  background-color: #064e3b;
+  color: #6ee7b7;
+}
+
+/* Классы для текста */
+.dark-text-primary {
+  color: #f9fafb !important;
+}
+
+.dark-text-secondary {
+  color: #9ca3af !important;
+}
+
+.dark-card {
+  background-color: #1f2937 !important;
+  border-color: #374151 !important;
+}
+
+/* Адаптивность */
+@media (max-width: 640px) {
+  .payment-settings {
+    padding: 16px;
+  }
+  
+  .detail-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .detail-label {
+    min-width: auto;
+  }
+  
+  .card-number-wrapper {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .amount-buttons {
+    flex-direction: column;
+  }
+  
+  .amount-btn {
+    width: 100%;
+  }
+}

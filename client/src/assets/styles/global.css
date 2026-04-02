@@ -1,0 +1,178 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Дополнительные кастомные стили */
+@layer utilities {
+  /* Анимации */
+  @keyframes blob {
+    0% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    33% {
+      transform: translate(30px, -50px) scale(1.1);
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
+    }
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+  }
+
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-20px) rotate(5deg);
+    }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animation-delay-1000 {
+    animation-delay: 1s;
+  }
+
+  .animation-delay-1500 {
+    animation-delay: 1.5s;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+
+  .animation-delay-2500 {
+    animation-delay: 2.5s;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out;
+  }
+
+  @keyframes shake {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+      transform: translateX(-5px);
+    }
+    20%, 40%, 60%, 80% {
+      transform: translateX(5px);
+    }
+  }
+
+  .animate-shake {
+    animation: shake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  }
+
+  /* Стеклянный эффект */
+  .glass {
+    @apply bg-white/80 backdrop-blur-xl border border-white/20;
+  }
+
+  .glass-dark {
+    @apply bg-gray-900/80 backdrop-blur-xl border border-gray-700;
+  }
+
+  /* Градиентный текст */
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-emerald-600;
+  }
+
+  /* Неоновые эффекты */
+  .neon-border {
+    box-shadow: 0 0 10px rgba(22, 163, 74, 0.5),
+                0 0 20px rgba(22, 163, 74, 0.3),
+                0 0 30px rgba(22, 163, 74, 0.1);
+  }
+
+  .neon-text {
+    text-shadow: 0 0 10px rgba(22, 163, 74, 0.5),
+                 0 0 20px rgba(22, 163, 74, 0.3),
+                 0 0 30px rgba(22, 163, 74, 0.1);
+  }
+
+  /* Карточки с эффектом наведения */
+  .hover-card {
+    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-xl;
+  }
+
+  /* Кастомный скроллбар */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-gray-100 rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-gradient-to-b from-green-500 to-green-600 rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply from-green-600 to-green-700;
+  }
+}
+
+/* Базовые стили */
+body {
+  @apply antialiased;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Анимированный градиент */
+.animated-gradient {
+  background: linear-gradient(
+    -45deg,
+    #16a34a,
+    #22c55e,
+    #4ade80,
+    #86efac,
+    #4ade80,
+    #22c55e,
+    #16a34a
+  );
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

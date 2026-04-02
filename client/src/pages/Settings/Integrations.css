@@ -1,0 +1,327 @@
+/* client/src/pages/Settings/Integrations.css */
+.integrations-page {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.integrations-header {
+  margin-bottom: 32px;
+}
+
+.integrations-header h1 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.integrations-description {
+  font-size: 16px;
+  color: #64748b;
+}
+
+/* Табы */
+.integrations-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 12px;
+}
+
+.integrations-tabs .tab-btn {
+  padding: 10px 20px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.integrations-tabs .tab-btn:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.integrations-tabs .tab-btn.active {
+  background: #2d5a27;
+  color: white;
+}
+
+/* Поиск */
+.search-section {
+  margin-bottom: 32px;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 500px;
+  padding: 12px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 15px;
+  transition: all 0.2s;
+}
+
+.search-input:focus {
+  border-color: #2d5a27;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(45, 90, 39, 0.1);
+}
+
+/* Категории */
+.integration-category {
+  margin-bottom: 48px;
+}
+
+.integration-category h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 24px;
+}
+
+/* Сетка интеграций */
+.integrations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px;
+}
+
+/* Карточка интеграции */
+.integration-card {
+  padding: 24px;
+  border-radius: 16px;
+  position: relative;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.integration-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.integration-card.popular {
+  border: 2px solid #2d5a27;
+  background: linear-gradient(to bottom, #ffffff, #f8fafc);
+}
+
+.integration-card.connected {
+  border-left: 6px solid #2d5a27;
+  background: #f8fafc;
+}
+
+.integration-card.development {
+  background: #f8fafc;
+  border: 1px dashed #94a3b8;
+  opacity: 0.9;
+}
+
+.integration-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.integration-icon.large {
+  font-size: 48px;
+}
+
+.integration-info h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.integration-info p {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+/* Теги */
+.integration-tags {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.integration-tag {
+  padding: 4px 8px;
+  background: #f1f5f9;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #475569;
+}
+
+.integration-tag.popular {
+  background: #2d5a27;
+  color: white;
+}
+
+/* Статус */
+.integration-status-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.integration-status-badge.active {
+  background: #e8f5e9;
+  color: #2d5a27;
+}
+
+.integration-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 4px 12px;
+  background: #f59e0b;
+  color: white;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Мета-информация */
+.integration-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.meta-item {
+  font-size: 13px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Действия */
+.integration-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* Маркетплейс */
+.marketplace-banner {
+  margin-bottom: 32px;
+  padding: 32px;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  border: none;
+}
+
+.banner-content {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  color: white;
+}
+
+.banner-icon {
+  font-size: 48px;
+}
+
+.banner-text h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.banner-text p {
+  font-size: 16px;
+  color: #cbd5e1;
+}
+
+.coming-soon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.coming-soon-card {
+  padding: 32px 24px;
+  text-align: center;
+  position: relative;
+}
+
+.coming-soon-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 4px 12px;
+  background: #f59e0b;
+  color: white;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.coming-soon-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+}
+
+.coming-soon-card h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.coming-soon-card p {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 16px;
+}
+
+.coming-soon-price {
+  font-size: 24px;
+  font-weight: 700;
+  color: #2d5a27;
+  margin-bottom: 20px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .integrations-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .banner-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .integration-actions {
+    flex-direction: column;
+  }
+  
+  .integration-actions button {
+    width: 100%;
+  }
+}

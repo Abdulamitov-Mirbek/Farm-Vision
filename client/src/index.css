@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Глобальные стили для тем */
+:root {
+  --bg-primary: 255, 255, 255;
+  --text-primary: 17, 24, 39;
+  --bg-secondary: 249, 250, 251;
+  --border-color: 229, 231, 235;
+}
+
+.dark {
+  --bg-primary: 17, 24, 39;
+  --text-primary: 255, 255, 255;
+  --bg-secondary: 31, 41, 55;
+  --border-color: 55, 65, 81;
+}
+
+body {
+  background-color: rgb(var(--bg-primary));
+  color: rgb(var(--text-primary));
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Плавные переходы для всех элементов */
+* {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* Анимации */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slideDown {
+  animation: slideDown 0.3s ease-out;
+}
