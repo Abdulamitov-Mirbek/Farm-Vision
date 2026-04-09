@@ -1,35 +1,18 @@
 // client/src/services/api/userAPI.js
-import api from './axiosConfig';
+import api from "./axiosConfig";
 
 const userAPI = {
   // Получение профиля пользователя
   getProfile: async () => {
     try {
-      console.log('📤 Запрос профиля...');
-      
-      // Пробуем разные варианты эндпоинтов
-      let response;
-      const endpoints = [
-        '/auth/profile',
-        '/users/profile'
-      ];
-      
-      for (const endpoint of endpoints) {
-        try {
-          console.log(`Пробуем ${endpoint}...`);
-          response = await api.get(endpoint);
-          if (response.data) {
-            console.log(`✅ Успешно на ${endpoint}:`, response.data);
-            return response.data;
-          }
-        } catch (err) {
-          console.log(`❌ ${endpoint} не работает:`, err.message);
-        }
-      }
-      
-      throw new Error('Не удалось найти эндпоинт профиля');
+      console.log("📤 Запрос профиля...");
+
+      // ✅ CORRECTED: Use /api/auth/me
+      const response = await api.get("/api/auth/me");
+      console.log("✅ Профиль получен:", response.data);
+      return response.data;
     } catch (error) {
-      console.error('❌ Ошибка загрузки профиля:', error);
+      console.error("❌ Ошибка загрузки профиля:", error);
       throw error;
     }
   },
@@ -37,13 +20,14 @@ const userAPI = {
   // Обновление профиля
   updateProfile: async (userData) => {
     try {
-      console.log('📤 Отправка данных профиля:', userData);
-      
-      const response = await api.put('/auth/profile', userData);
-      console.log('✅ Профиль обновлен:', response.data);
+      console.log("📤 Отправка данных профиля:", userData);
+
+      // ✅ CORRECTED: Add /api prefix
+      const response = await api.put("/api/auth/profile", userData);
+      console.log("✅ Профиль обновлен:", response.data);
       return response.data;
     } catch (error) {
-      console.error('❌ Ошибка обновления профиля:', error);
+      console.error("❌ Ошибка обновления профиля:", error);
       throw error;
     }
   },
@@ -51,42 +35,28 @@ const userAPI = {
   // Смена пароля
   changePassword: async (passwordData) => {
     try {
-      console.log('📤 Смена пароля...');
-      
-      const response = await api.post('/auth/change-password', passwordData);
-      console.log('✅ Пароль изменен');
+      console.log("📤 Смена пароля...");
+
+      // ✅ CORRECTED: Add /api prefix
+      const response = await api.post(
+        "/api/auth/change-password",
+        passwordData,
+      );
+      console.log("✅ Пароль изменен");
       return response.data;
     } catch (error) {
-      console.error('❌ Ошибка смены пароля:', error);
+      console.error("❌ Ошибка смены пароля:", error);
       throw error;
     }
   },
 
-  // ✅ ДОБАВЛЕН МЕТОД ДЛЯ СТАТИСТИКИ
+  // Статистика пользователя (заглушка - бэкенд не имеет этого эндпоинта)
   getUserStats: async () => {
     try {
-      console.log('📤 Запрос статистики пользователя...');
-      
-      const endpoints = [
-        '/auth/stats',
-        '/users/stats'
-      ];
-      
-      for (const endpoint of endpoints) {
-        try {
-          console.log(`Пробуем ${endpoint}...`);
-          const response = await api.get(endpoint);
-          if (response.data) {
-            console.log(`✅ Статистика получена с ${endpoint}:`, response.data);
-            return response.data;
-          }
-        } catch (err) {
-          console.log(`❌ ${endpoint} не работает:`, err.message);
-        }
-      }
-      
-      // Заглушка для дашборда
-      console.log('⚠️ Используем заглушку для статистики');
+      console.log("📤 Запрос статистики пользователя...");
+
+      // Бэкенд не имеет /auth/stats, возвращаем заглушку сразу
+      console.log("⚠️ Эндпоинт статистики не реализован, используем заглушку");
       return {
         fields: 12,
         animals: 45,
@@ -95,17 +65,17 @@ const userAPI = {
         crops: 6,
         weather: {
           temperature: 22,
-          condition: 'sunny'
-        }
+          condition: "sunny",
+        },
       };
     } catch (error) {
-      console.error('❌ Ошибка получения статистики:', error);
+      console.error("❌ Ошибка получения статистики:", error);
       return {
         fields: 0,
         animals: 0,
         tasks: 0,
         resources: 0,
-        crops: 0
+        crops: 0,
       };
     }
   },
@@ -113,17 +83,17 @@ const userAPI = {
   // Загрузка аватара
   uploadAvatar: async (formData) => {
     try {
-      console.log('📤 Загрузка аватара...');
-      
-      const response = await api.post('/auth/avatar', formData, {
+      console.log("📤 Загрузка аватара...");
+
+      const response = await api.post("/api/auth/avatar", formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
       });
-      
+
       return response.data;
     } catch (error) {
-      console.error('❌ Ошибка загрузки аватара:', error);
+      console.error("❌ Ошибка загрузки аватара:", error);
       throw error;
     }
   },
@@ -131,12 +101,12 @@ const userAPI = {
   // Удаление аватара
   deleteAvatar: async () => {
     try {
-      console.log('📤 Удаление аватара...');
-      
-      const response = await api.delete('/auth/avatar');
+      console.log("📤 Удаление аватара...");
+
+      const response = await api.delete("/api/auth/avatar");
       return response.data;
     } catch (error) {
-      console.error('❌ Ошибка удаления аватара:', error);
+      console.error("❌ Ошибка удаления аватара:", error);
       throw error;
     }
   },
@@ -144,28 +114,33 @@ const userAPI = {
   // Получение настроек пользователя
   getUserSettings: async () => {
     try {
-      console.log('📤 Запрос настроек пользователя...');
-      
-      const response = await api.get('/auth/settings');
+      console.log("📤 Запрос настроек пользователя...");
+
+      const response = await api.get("/api/auth/settings");
       return response.data;
     } catch (error) {
-      console.error('❌ Ошибка загрузки настроек:', error);
-      throw error;
+      console.error("❌ Ошибка загрузки настроек:", error);
+      // Возвращаем настройки по умолчанию
+      return {
+        notifications: true,
+        language: "ru",
+        theme: "light",
+      };
     }
   },
 
   // Обновление настроек пользователя
   updateUserSettings: async (settings) => {
     try {
-      console.log('📤 Обновление настроек:', settings);
-      
-      const response = await api.put('/auth/settings', settings);
+      console.log("📤 Обновление настроек:", settings);
+
+      const response = await api.put("/api/auth/settings", settings);
       return response.data;
     } catch (error) {
-      console.error('❌ Ошибка обновления настроек:', error);
+      console.error("❌ Ошибка обновления настроек:", error);
       throw error;
     }
-  }
+  },
 };
 
 export default userAPI;
