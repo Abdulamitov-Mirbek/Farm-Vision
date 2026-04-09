@@ -1,11 +1,12 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect } from "react";
+import { useAuth } from "../hooks/useAuth";
 
 const AvatarContext = createContext();
 
 export const useAvatar = () => {
   const context = useContext(AvatarContext);
   if (!context) {
-    throw new Error('useAvatar must be used within AvatarProvider');
+    throw new Error("useAvatar must be used within AvatarProvider");
   }
   return context;
 };
@@ -13,82 +14,44 @@ export const useAvatar = () => {
 export const AvatarProvider = ({ children }) => {
   const [avatar, setAvatar] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { user } = useAuth(); // ✅ Получаем текущего пользователя
 
-  // Загружаем аватар из localStorage при старте
+  // ✅ Загружаем аватар из данных пользователя (с сервера)
   useEffect(() => {
-    const loadAvatar = () => {
-      try {
-        const savedAvatar = localStorage.getItem('userAvatar');
-        if (savedAvatar) {
-          setAvatar(savedAvatar);
-        }
-      } catch (error) {
-        console.error('Ошибка загрузки аватара:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    
-    loadAvatar();
-  }, []);
-
-  // Функция для обновления аватара
-  const updateAvatar = (newAvatar) => {
-    try {
-      setAvatar(newAvatar);
-      localStorage.setItem('userAvatar', newAvatar);
-      
-      // Вызываем событие для синхронизации между вкладками
-      window.dispatchEvent(new StorageEvent('storage', {
-        key: 'userAvatar',
-        newValue: newAvatar
-      }));
-      
-      console.log('Аватар обновлен и сохранен');
-    } catch (error) {
-      console.error('Ошибка сохранения аватара:', error);
+    if (user?.avatar) {
+      setAvatar(user.avatar);
+      console.log(
+        "📸 Аватар загружен для пользователя:",
+        user.name || user.username,
+      );
+    } else {
+      setAvatar(null); // ✅ Сбрасываем при выходе или если нет аватара
     }
+    setLoading(false);
+  }, [user]); // ✅ Зависит от пользователя!
+
+  // Функция для обновления аватара (только в состоянии, не в localStorage!)
+  const updateAvatar = (newAvatar) => {
+    setAvatar(newAvatar);
+    console.log("📸 Аватар обновлен в состоянии");
+    // ✅ НЕ сохраняем в глобальный localStorage!
   };
 
   // Функция для удаления аватара
   const removeAvatar = () => {
-    try {
-      setAvatar(null);
-      localStorage.removeItem('userAvatar');
-      
-      window.dispatchEvent(new StorageEvent('storage', {
-        key: 'userAvatar',
-        newValue: null
-      }));
-      
-      console.log('Аватар удален');
-    } catch (error) {
-      console.error('Ошибка удаления аватара:', error);
-    }
+    setAvatar(null);
+    console.log("📸 Аватар удален из состояния");
   };
 
-  // Слушаем изменения в localStorage (для синхронизации между вкладками)
-  useEffect(() => {
-    const handleStorageChange = (e) => {
-      if (e.key === 'userAvatar') {
-        setAvatar(e.newValue);
-      }
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-    
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, []);
-
   return (
-    <AvatarContext.Provider value={{ 
-      avatar, 
-      updateAvatar, 
-      removeAvatar,
-      loading 
-    }}>
+    <AvatarContext.Provider
+      value={{
+        avatar,
+        updateAvatar,
+        removeAvatar,
+        loading,
+      }}
+    >
       {children}
     </AvatarContext.Provider>
   );

@@ -5,8 +5,8 @@ const fieldsAPI = {
   // Получить все поля
   getAll: async (filters = {}) => {
     try {
-      console.log('📡 GET /api/fields с фильтрами:', filters);
-      const response = await api.get('/api/fields', { params: filters });
+      console.log('📡 GET /fields с фильтрами:', filters);
+      const response = await api.get('/fields', { params: filters });
       console.log('✅ Fields fetched:', response.data);
       return response.data;
     } catch (error) {
@@ -18,8 +18,8 @@ const fieldsAPI = {
   // Получить статистику
   getStats: async () => {
     try {
-      console.log('📡 GET /api/fields/stats');
-      const response = await api.get('/api/fields/stats');
+      console.log('📡 GET /fields/stats');
+      const response = await api.get('/fields/stats');
       console.log('✅ Fields stats:', response.data);
       return response.data;
     } catch (error) {
@@ -31,8 +31,8 @@ const fieldsAPI = {
   // Создать поле
   create: async (fieldData) => {
     try {
-      console.log('📤 POST /api/fields с данными:', fieldData);
-      const response = await api.post('/api/fields', fieldData);
+      console.log('📤 POST /fields с данными:', fieldData);
+      const response = await api.post('/fields', fieldData);
       console.log('✅ Поле создано:', response.data);
       return response.data;
     } catch (error) {
@@ -44,8 +44,8 @@ const fieldsAPI = {
   // Получить поле по ID
   getById: async (id) => {
     try {
-      console.log(`📡 GET /api/fields/${id}`);
-      const response = await api.get(`/api/fields/${id}`);
+      console.log(`📡 GET /fields/${id}`);
+      const response = await api.get(`/fields/${id}`);
       console.log('✅ Field fetched:', response.data);
       return response.data;
     } catch (error) {
@@ -57,8 +57,8 @@ const fieldsAPI = {
   // Обновить поле
   update: async (id, fieldData) => {
     try {
-      console.log(`📤 PUT /api/fields/${id}:`, fieldData);
-      const response = await api.put(`/api/fields/${id}`, fieldData);
+      console.log(`📤 PUT /fields/${id}:`, fieldData);
+      const response = await api.put(`/fields/${id}`, fieldData);
       console.log('✅ Field updated:', response.data);
       return response.data;
     } catch (error) {
@@ -70,8 +70,8 @@ const fieldsAPI = {
   // Удалить поле
   delete: async (id) => {
     try {
-      console.log(`📤 DELETE /api/fields/${id}`);
-      const response = await api.delete(`/api/fields/${id}`);
+      console.log(`📤 DELETE /fields/${id}`);
+      const response = await api.delete(`/fields/${id}`);
       console.log('✅ Field deleted:', response.data);
       return response.data;
     } catch (error) {
@@ -83,8 +83,8 @@ const fieldsAPI = {
   // Обновить статус поля
   updateStatus: async (id, status) => {
     try {
-      console.log(`📤 PATCH /api/fields/${id}/status:`, status);
-      const response = await api.patch(`/api/fields/${id}/status`, { status });
+      console.log(`📤 PATCH /fields/${id}/status:`, status);
+      const response = await api.patch(`/fields/${id}/status`, { status });
       console.log('✅ Field status updated:', response.data);
       return response.data;
     } catch (error) {
@@ -96,8 +96,8 @@ const fieldsAPI = {
   // Получить поля по культуре
   getByCrop: async (cropType) => {
     try {
-      console.log(`📡 GET /api/fields/crop/${cropType}`);
-      const response = await api.get(`/api/fields/crop/${cropType}`);
+      console.log(`📡 GET /fields/crop/${cropType}`);
+      const response = await api.get(`/fields/crop/${cropType}`);
       return response.data;
     } catch (error) {
       console.error('❌ Error fetching fields by crop:', error.response?.data || error.message);
@@ -108,8 +108,8 @@ const fieldsAPI = {
   // Получить активные поля
   getActive: async () => {
     try {
-      console.log('📡 GET /api/fields/active');
-      const response = await api.get('/api/fields/active');
+      console.log('📡 GET /fields/active');
+      const response = await api.get('/fields/active');
       return response.data;
     } catch (error) {
       console.error('❌ Error fetching active fields:', error.response?.data || error.message);
@@ -120,8 +120,8 @@ const fieldsAPI = {
   // Получить поля требующие полива
   getNeedsWatering: async () => {
     try {
-      console.log('📡 GET /api/fields/needs-watering');
-      const response = await api.get('/api/fields/needs-watering');
+      console.log('📡 GET /fields/needs-watering');
+      const response = await api.get('/fields/needs-watering');
       return response.data;
     } catch (error) {
       console.error('❌ Error fetching fields needing watering:', error.response?.data || error.message);
@@ -132,8 +132,8 @@ const fieldsAPI = {
   // Получить урожайность по полям
   getYield: async (fieldId) => {
     try {
-      console.log(`📡 GET /api/fields/${fieldId}/yield`);
-      const response = await api.get(`/api/fields/${fieldId}/yield`);
+      console.log(`📡 GET /fields/${fieldId}/yield`);
+      const response = await api.get(`/fields/${fieldId}/yield`);
       return response.data;
     } catch (error) {
       console.error('❌ Error fetching field yield:', error.response?.data || error.message);
@@ -144,8 +144,8 @@ const fieldsAPI = {
   // Получить историю работ на поле
   getWorkHistory: async (fieldId) => {
     try {
-      console.log(`📡 GET /api/fields/${fieldId}/work-history`);
-      const response = await api.get(`/api/fields/${fieldId}/work-history`);
+      console.log(`📡 GET /fields/${fieldId}/work-history`);
+      const response = await api.get(`/fields/${fieldId}/work-history`);
       return response.data;
     } catch (error) {
       console.error('❌ Error fetching work history:', error.response?.data || error.message);
@@ -156,8 +156,8 @@ const fieldsAPI = {
   // Получить прогноз урожая
   getForecast: async (fieldId) => {
     try {
-      console.log(`📡 GET /api/fields/${fieldId}/forecast`);
-      const response = await api.get(`/api/fields/${fieldId}/forecast`);
+      console.log(`📡 GET /fields/${fieldId}/forecast`);
+      const response = await api.get(`/fields/${fieldId}/forecast`);
       return response.data;
     } catch (error) {
       console.error('❌ Error fetching forecast:', error.response?.data || error.message);
@@ -168,8 +168,8 @@ const fieldsAPI = {
   // Массовое обновление полей
   bulkUpdate: async (updates) => {
     try {
-      console.log('📤 PATCH /api/fields/bulk', updates);
-      const response = await api.patch('/api/fields/bulk', { updates });
+      console.log('📤 PATCH /fields/bulk', updates);
+      const response = await api.patch('/fields/bulk', { updates });
       return response.data;
     } catch (error) {
       console.error('❌ Error bulk updating fields:', error.response?.data || error.message);
@@ -180,8 +180,8 @@ const fieldsAPI = {
   // Экспорт полей
   exportFields: async (format = 'csv') => {
     try {
-      console.log(`📡 GET /api/fields/export?format=${format}`);
-      const response = await api.get('/api/fields/export', {
+      console.log(`📡 GET /fields/export?format=${format}`);
+      const response = await api.get('/fields/export', {
         params: { format },
         responseType: 'blob'
       });

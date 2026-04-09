@@ -7,8 +7,8 @@ const userAPI = {
     try {
       console.log("📤 Запрос профиля...");
 
-      // ✅ CORRECTED: Use /api/auth/me
-      const response = await api.get("/api/auth/me");
+      // ✅ Без двойного /api (базовый URL уже содержит /api)
+      const response = await api.get("/auth/me");
       console.log("✅ Профиль получен:", response.data);
       return response.data;
     } catch (error) {
@@ -22,8 +22,8 @@ const userAPI = {
     try {
       console.log("📤 Отправка данных профиля:", userData);
 
-      // ✅ CORRECTED: Add /api prefix
-      const response = await api.put("/api/auth/profile", userData);
+      // ✅ Без двойного /api
+      const response = await api.put("/auth/profile", userData);
       console.log("✅ Профиль обновлен:", response.data);
       return response.data;
     } catch (error) {
@@ -37,11 +37,8 @@ const userAPI = {
     try {
       console.log("📤 Смена пароля...");
 
-      // ✅ CORRECTED: Add /api prefix
-      const response = await api.post(
-        "/api/auth/change-password",
-        passwordData,
-      );
+      // ✅ Без двойного /api
+      const response = await api.post("/auth/change-password", passwordData);
       console.log("✅ Пароль изменен");
       return response.data;
     } catch (error) {
@@ -50,42 +47,13 @@ const userAPI = {
     }
   },
 
-  // Статистика пользователя (заглушка - бэкенд не имеет этого эндпоинта)
-  getUserStats: async () => {
-    try {
-      console.log("📤 Запрос статистики пользователя...");
-
-      // Бэкенд не имеет /auth/stats, возвращаем заглушку сразу
-      console.log("⚠️ Эндпоинт статистики не реализован, используем заглушку");
-      return {
-        fields: 12,
-        animals: 45,
-        tasks: 8,
-        resources: 23,
-        crops: 6,
-        weather: {
-          temperature: 22,
-          condition: "sunny",
-        },
-      };
-    } catch (error) {
-      console.error("❌ Ошибка получения статистики:", error);
-      return {
-        fields: 0,
-        animals: 0,
-        tasks: 0,
-        resources: 0,
-        crops: 0,
-      };
-    }
-  },
-
   // Загрузка аватара
   uploadAvatar: async (formData) => {
     try {
       console.log("📤 Загрузка аватара...");
 
-      const response = await api.post("/api/auth/avatar", formData, {
+      // ✅ Без двойного /api
+      const response = await api.post("/auth/avatar", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -98,47 +66,27 @@ const userAPI = {
     }
   },
 
-  // Удаление аватара
-  deleteAvatar: async () => {
+  // Статистика пользователя (заглушка)
+  getUserStats: async () => {
     try {
-      console.log("📤 Удаление аватара...");
+      console.log("📤 Запрос статистики...");
 
-      const response = await api.delete("/api/auth/avatar");
+      // Пробуем получить статистику
+      const response = await api.get("/users/stats");
       return response.data;
     } catch (error) {
-      console.error("❌ Ошибка удаления аватара:", error);
-      throw error;
-    }
-  },
-
-  // Получение настроек пользователя
-  getUserSettings: async () => {
-    try {
-      console.log("📤 Запрос настроек пользователя...");
-
-      const response = await api.get("/api/auth/settings");
-      return response.data;
-    } catch (error) {
-      console.error("❌ Ошибка загрузки настроек:", error);
-      // Возвращаем настройки по умолчанию
+      console.log("⚠️ Статистика недоступна, используем заглушку");
+      // Возвращаем заглушку
       return {
-        notifications: true,
-        language: "ru",
-        theme: "light",
+        data: {
+          totalFields: 12,
+          totalArea: 45,
+          totalTasks: 8,
+          completedTasks: 5,
+          totalHours: 120,
+          achievements: 3,
+        },
       };
-    }
-  },
-
-  // Обновление настроек пользователя
-  updateUserSettings: async (settings) => {
-    try {
-      console.log("📤 Обновление настроек:", settings);
-
-      const response = await api.put("/api/auth/settings", settings);
-      return response.data;
-    } catch (error) {
-      console.error("❌ Ошибка обновления настроек:", error);
-      throw error;
     }
   },
 };

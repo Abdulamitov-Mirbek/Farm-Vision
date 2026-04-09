@@ -5,8 +5,8 @@ const animalsAPI = {
   // Получить всех животных
   getAll: async (filters = {}) => {
     try {
-      console.log('📡 GET /api/animals с фильтрами:', filters);
-      const response = await api.get('/api/animals', { params: filters });
+      console.log('📡 GET /animals с фильтрами:', filters);
+      const response = await api.get('/animals', { params: filters });
       
       // Возвращаем данные в правильном формате
       if (response.data && response.data.data) {
@@ -58,8 +58,8 @@ const animalsAPI = {
   // Получить статистику
   getStats: async () => {
     try {
-      console.log('📡 GET /api/animals/stats');
-      const response = await api.get('/api/animals/stats');
+      console.log('📡 GET /animals/stats');
+      const response = await api.get('/animals/stats');
       return response.data;
     } catch (error) {
       console.error('❌ Error fetching animals stats:', error.response?.data || error.message);
@@ -76,8 +76,8 @@ const animalsAPI = {
         tag: animalData.tag || `${animalData.type || 'ANIMAL'}-${Date.now()}`
       };
       
-      console.log('📤 POST /api/animals с данными:', dataWithTag);
-      const response = await api.post('/api/animals', dataWithTag);
+      console.log('📤 POST /animals с данными:', dataWithTag);
+      const response = await api.post('/animals', dataWithTag);
       return response.data;
     } catch (error) {
       console.error('❌ Error creating animal:', error.response?.data || error.message);
@@ -88,8 +88,8 @@ const animalsAPI = {
   // Получить животное по ID
   getById: async (id) => {
     try {
-      console.log(`📡 GET /api/animals/${id}`);
-      const response = await api.get(`/api/animals/${id}`);
+      console.log(`📡 GET /animals/${id}`);
+      const response = await api.get(`/animals/${id}`);
       return response.data;
     } catch (error) {
       console.error(`❌ Error fetching animal ${id}:`, error.response?.data || error.message);
@@ -100,8 +100,8 @@ const animalsAPI = {
   // Обновить животное
   update: async (id, animalData) => {
     try {
-      console.log(`📤 PUT /api/animals/${id}:`, animalData);
-      const response = await api.put(`/api/animals/${id}`, animalData);
+      console.log(`📤 PUT /animals/${id}:`, animalData);
+      const response = await api.put(`/animals/${id}`, animalData);
       return response.data;
     } catch (error) {
       console.error(`❌ Error updating animal ${id}:`, error.response?.data || error.message);
@@ -112,8 +112,8 @@ const animalsAPI = {
   // Удалить животное
   delete: async (id) => {
     try {
-      console.log(`📤 DELETE /api/animals/${id}`);
-      const response = await api.delete(`/api/animals/${id}`);
+      console.log(`📤 DELETE /animals/${id}`);
+      const response = await api.delete(`/animals/${id}`);
       return response.data;
     } catch (error) {
       console.error(`❌ Error deleting animal ${id}:`, error.response?.data || error.message);
@@ -124,8 +124,8 @@ const animalsAPI = {
   // Обновить здоровье
   updateHealth: async (id, healthData) => {
     try {
-      console.log(`📤 PATCH /api/animals/${id}/health:`, healthData);
-      const response = await api.patch(`/api/animals/${id}/health`, healthData);
+      console.log(`📤 PATCH /animals/${id}/health:`, healthData);
+      const response = await api.patch(`/animals/${id}/health`, healthData);
       return response.data;
     } catch (error) {
       console.error(`❌ Error updating health for ${id}:`, error.response?.data || error.message);
@@ -136,8 +136,8 @@ const animalsAPI = {
   // Добавить вакцинацию
   addVaccination: async (id, vaccinationData) => {
     try {
-      console.log(`📤 POST /api/animals/${id}/vaccinations:`, vaccinationData);
-      const response = await api.post(`/api/animals/${id}/vaccinations`, vaccinationData);
+      console.log(`📤 POST /animals/${id}/vaccinations:`, vaccinationData);
+      const response = await api.post(`/animals/${id}/vaccinations`, vaccinationData);
       return response.data;
     } catch (error) {
       console.error(`❌ Error adding vaccination for ${id}:`, error.response?.data || error.message);

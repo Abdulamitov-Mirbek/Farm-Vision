@@ -1,8 +1,40 @@
 // server/routes/auth.js
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const authController = require('../controllers/authController');
-const { protect } = require('../middleware/authMiddleware');
+const authController = require("../controllers/authController");
+const { protect } = require("../middleware/authMiddleware");
+const User = require("../models/User");
+const multer = require("multer");
+const path = require("path");
+
+// Настройка multer для загрузки аватаров
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/avatars/");
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, "avatar-" + uniqueSuffix + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = /jpeg|jpg|png|gif/;
+    const extname = allowedTypes.test(
+      path.extname(file.originalname).toLowerCase(),
+    );
+    const mimetype = allowedTypes.test(file.mimetype);
+
+    if (mimetype && extname) {
+      return cb(null, true);
+    } else {
+      cb(new Error("Только изображения (jpeg, jpg, png, gif)"));
+    }
+  },
+});
 
 /**
  * @swagger
@@ -34,7 +66,7 @@ const { protect } = require('../middleware/authMiddleware');
  *         createdAt:
  *           type: string
  *           format: date-time
- *     
+ *
  *     LoginResponse:
  *       type: object
  *       properties:
@@ -96,7 +128,7 @@ const { protect } = require('../middleware/authMiddleware');
  *       500:
  *         description: Ошибка сервера
  */
-router.post('/register', authController.register);
+router.post("/register", authController.register);
 
 /**
  * @swagger
@@ -138,7 +170,7 @@ router.post('/register', authController.register);
  *       500:
  *         description: Ошибка сервера
  */
-router.post('/login', authController.login);
+router.post("/login", authController.login);
 
 /**
  * @swagger
@@ -164,7 +196,7 @@ router.post('/login', authController.login);
  *       404:
  *         description: Пользователь с таким email не найден
  */
-router.post('/forgot-password', authController.forgotPassword);
+router.post("/forgot-password", authController.forgotPassword);
 
 /**
  * @swagger
@@ -193,7 +225,7 @@ router.post('/forgot-password', authController.forgotPassword);
  *       400:
  *         description: Недействительный или истекший токен
  */
-router.post('/reset-password', authController.resetPassword);
+router.post("/reset-password", authController.resetPassword);
 
 // ============ ПРИВАТНЫЕ МАРШРУТЫ (требуют авторизацию) ============
 
@@ -223,7 +255,122 @@ router.use(protect);
  *       401:
  *         description: Не авторизован
  */
-router.get('/me', authController.getMe);
+router.get("/me", authController.getMe);
+
+/**
+ * @swagger
+ * /api/auth/avatar:
+ *   post:
+ *     summary: Загрузка аватара пользователя
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - avatar
+ *             properties:
+ *               avatar:
+ *                 type: string
+ *                 format: binary
+ *                 description: Файл изображения (jpeg, jpg, png, gif)
+ *     responses:
+ *       200:
+ *         description: Аватар успешно загружен
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 avatar:
+ *                   type: string
+ *                 user:
+ *                   type: object
+ *       400:
+ *         description: Файл не загружен или неверный формат
+ *       401:
+ *         description: Не авторизован
+ */
+router.post("/avatar", upload.single("avatar"), async (req, res) => {
+  try {
+    console.log("📸 ===== НАЧАЛО ЗАГРУЗКИ =====");
+    console.log(
+      "📸 req.user:",
+      req.user ? { id: req.user._id, email: req.user.email } : "ОТСУТСТВУЕТ",
+    );
+    console.log(
+      "📸 req.file:",
+      req.file
+        ? {
+            originalname: req.file.originalname,
+            mimetype: req.file.mimetype,
+            size: req.file.size,
+            path: req.file.path,
+          }
+        : "ОТСУТСТВУЕТ",
+    );
+    console.log("📸 req.body:", req.body);
+    console.log(
+      "📸 req.headers.authorization:",
+      req.headers.authorization ? "ЕСТЬ" : "НЕТ",
+    );
+
+    if (!req.file) {
+      console.log("❌ Файл отсутствует в запросе!");
+      return res
+        .status(400)
+        .json({ success: false, message: "Файл не загружен" });
+    }
+
+    if (!req.user || !req.user._id) {
+      console.log("❌ Пользователь не авторизован!");
+      return res
+        .status(401)
+        .json({ success: false, message: "Не авторизован" });
+    }
+
+    const avatarUrl = `/uploads/avatars/${req.file.filename}`;
+    console.log("📸 avatarUrl:", avatarUrl);
+
+    const user = await User.findByIdAndUpdate(
+      req.user._id,
+      { avatar: avatarUrl },
+      { new: true },
+    ).select("-password");
+
+    if (!user) {
+      console.log("❌ Пользователь не найден в БД!");
+      return res
+        .status(404)
+        .json({ success: false, message: "Пользователь не найден" });
+    }
+
+    console.log("✅ Аватар обновлен для:", user.username);
+    console.log("📸 ===== КОНЕЦ ЗАГРУЗКИ =====");
+
+    res.json({
+      success: true,
+      message: "Аватар успешно загружен",
+      avatar: avatarUrl,
+      user: { id: user._id, name: user.username, avatar: user.avatar },
+    });
+  } catch (error) {
+    console.error("❌ ===== ОШИБКА В CATCH =====");
+    console.error("❌ name:", error.name);
+    console.error("❌ message:", error.message);
+    console.error("❌ stack:", error.stack);
+    res.status(500).json({
+      success: false,
+      message: error.message || "Ошибка сервера при загрузке аватара",
+    });
+  }
+});
 
 /**
  * @swagger
@@ -256,7 +403,7 @@ router.get('/me', authController.getMe);
  *       401:
  *         description: Неверный текущий пароль
  */
-router.post('/change-password', authController.changePassword);
+router.post("/change-password", authController.changePassword);
 
 /**
  * @swagger
@@ -290,7 +437,7 @@ router.post('/change-password', authController.changePassword);
  *       200:
  *         description: Профиль успешно обновлен
  */
-router.put('/profile', authController.updateProfile);
+router.put("/profile", authController.updateProfile);
 
 /**
  * @swagger
@@ -304,7 +451,7 @@ router.put('/profile', authController.updateProfile);
  *       200:
  *         description: Успешный выход
  */
-router.post('/logout', authController.logout);
+router.post("/logout", authController.logout);
 
 /**
  * @swagger
@@ -332,7 +479,7 @@ router.post('/logout', authController.logout);
  *       401:
  *         description: Неверный пароль
  */
-router.delete('/delete-account', authController.deleteAccount);
+router.delete("/delete-account", authController.deleteAccount);
 
 /**
  * @swagger
@@ -344,15 +491,27 @@ router.delete('/delete-account', authController.deleteAccount);
  *       200:
  *         description: Информация о доступных маршрутах
  */
-router.get('/test', (req, res) => {
+router.get("/test", (req, res) => {
   res.json({
     success: true,
-    message: '✅ Auth routes are working!',
+    message: "✅ Auth routes are working!",
     availableEndpoints: {
-      public: ['POST /register', 'POST /login', 'POST /forgot-password', 'POST /reset-password'],
-      private: ['GET /me', 'POST /change-password', 'PUT /profile', 'POST /logout', 'DELETE /delete-account']
+      public: [
+        "POST /register",
+        "POST /login",
+        "POST /forgot-password",
+        "POST /reset-password",
+      ],
+      private: [
+        "GET /me",
+        "POST /avatar",
+        "POST /change-password",
+        "PUT /profile",
+        "POST /logout",
+        "DELETE /delete-account",
+      ],
     },
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 });
 

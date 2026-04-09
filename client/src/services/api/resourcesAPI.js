@@ -5,8 +5,8 @@ const resourcesAPI = {
   // Получить все ресурсы
   getAll: async (filters = {}) => {
     try {
-      console.log('📡 GET /api/resources с фильтрами:', filters);
-      const response = await api.get('/api/resources', { params: filters });
+      console.log('📡 GET /resources с фильтрами:', filters);
+      const response = await api.get('/resources', { params: filters });
       console.log('✅ Resources fetched:', response.data);
       return response.data;
     } catch (error) {
@@ -18,8 +18,8 @@ const resourcesAPI = {
   // Получить статистику
   getStats: async () => {
     try {
-      console.log('📡 GET /api/resources/stats');
-      const response = await api.get('/api/resources/stats');
+      console.log('📡 GET /resources/stats');
+      const response = await api.get('/resources/stats');
       console.log('✅ Resources stats:', response.data);
       return response.data;
     } catch (error) {
@@ -31,8 +31,8 @@ const resourcesAPI = {
   // Создать ресурс
   create: async (resourceData) => {
     try {
-      console.log('📤 POST /api/resources с данными:', resourceData);
-      const response = await api.post('/api/resources', resourceData);
+      console.log('📤 POST /resources с данными:', resourceData);
+      const response = await api.post('/resources', resourceData);
       console.log('✅ Resource created:', response.data);
       return response.data;
     } catch (error) {
@@ -44,8 +44,8 @@ const resourcesAPI = {
   // Получить ресурс по ID
   getById: async (id) => {
     try {
-      console.log(`📡 GET /api/resources/${id}`);
-      const response = await api.get(`/api/resources/${id}`);
+      console.log(`📡 GET /resources/${id}`);
+      const response = await api.get(`/resources/${id}`);
       console.log('✅ Resource fetched:', response.data);
       return response.data;
     } catch (error) {
@@ -57,8 +57,8 @@ const resourcesAPI = {
   // Обновить ресурс
   update: async (id, resourceData) => {
     try {
-      console.log(`📤 PUT /api/resources/${id}:`, resourceData);
-      const response = await api.put(`/api/resources/${id}`, resourceData);
+      console.log(`📤 PUT /resources/${id}:`, resourceData);
+      const response = await api.put(`/resources/${id}`, resourceData);
       console.log('✅ Resource updated:', response.data);
       return response.data;
     } catch (error) {
@@ -70,8 +70,8 @@ const resourcesAPI = {
   // Удалить ресурс
   delete: async (id) => {
     try {
-      console.log(`📤 DELETE /api/resources/${id}`);
-      const response = await api.delete(`/api/resources/${id}`);
+      console.log(`📤 DELETE /resources/${id}`);
+      const response = await api.delete(`/resources/${id}`);
       console.log('✅ Resource deleted:', response.data);
       return response.data;
     } catch (error) {
@@ -83,8 +83,8 @@ const resourcesAPI = {
   // Обновить количество
   updateQuantity: async (id, quantity) => {
     try {
-      console.log(`📤 PATCH /api/resources/${id}/quantity:`, quantity);
-      const response = await api.patch(`/api/resources/${id}/quantity`, { quantity });
+      console.log(`📤 PATCH /resources/${id}/quantity:`, quantity);
+      const response = await api.patch(`/resources/${id}/quantity`, { quantity });
       console.log('✅ Resource quantity updated:', response.data);
       return response.data;
     } catch (error) {
@@ -96,8 +96,8 @@ const resourcesAPI = {
   // Получить ресурсы по категории
   getByCategory: async (category) => {
     try {
-      console.log(`📡 GET /api/resources/category/${category}`);
-      const response = await api.get(`/api/resources/category/${category}`);
+      console.log(`📡 GET /resources/category/${category}`);
+      const response = await api.get(`/resources/category/${category}`);
       return response.data;
     } catch (error) {
       console.error('❌ Error fetching resources by category:', error.response?.data || error.message);
@@ -108,8 +108,8 @@ const resourcesAPI = {
   // Получить ресурсы с низким запасом
   getLowStock: async (threshold = 10) => {
     try {
-      console.log(`📡 GET /api/resources/low-stock?threshold=${threshold}`);
-      const response = await api.get('/api/resources/low-stock', {
+      console.log(`📡 GET /resources/low-stock?threshold=${threshold}`);
+      const response = await api.get('/resources/low-stock', {
         params: { threshold }
       });
       return response.data;
@@ -122,8 +122,8 @@ const resourcesAPI = {
   // Получить ресурсы по статусу
   getByStatus: async (status) => {
     try {
-      console.log(`📡 GET /api/resources/status/${status}`);
-      const response = await api.get(`/api/resources/status/${status}`);
+      console.log(`📡 GET /resources/status/${status}`);
+      const response = await api.get(`/resources/status/${status}`);
       return response.data;
     } catch (error) {
       console.error('❌ Error fetching resources by status:', error.response?.data || error.message);
@@ -134,8 +134,8 @@ const resourcesAPI = {
   // Получить историю использования ресурса
   getUsageHistory: async (id) => {
     try {
-      console.log(`📡 GET /api/resources/${id}/usage`);
-      const response = await api.get(`/api/resources/${id}/usage`);
+      console.log(`📡 GET /resources/${id}/usage`);
+      const response = await api.get(`/resources/${id}/usage`);
       return response.data;
     } catch (error) {
       console.error('❌ Error fetching usage history:', error.response?.data || error.message);
@@ -146,8 +146,8 @@ const resourcesAPI = {
   // Добавить использование ресурса
   addUsage: async (id, usageData) => {
     try {
-      console.log(`📤 POST /api/resources/${id}/usage`, usageData);
-      const response = await api.post(`/api/resources/${id}/usage`, usageData);
+      console.log(`📤 POST /resources/${id}/usage`, usageData);
+      const response = await api.post(`/resources/${id}/usage`, usageData);
       return response.data;
     } catch (error) {
       console.error('❌ Error adding resource usage:', error.response?.data || error.message);
@@ -158,8 +158,8 @@ const resourcesAPI = {
   // Получить прогноз потребления
   getForecast: async (id) => {
     try {
-      console.log(`📡 GET /api/resources/${id}/forecast`);
-      const response = await api.get(`/api/resources/${id}/forecast`);
+      console.log(`📡 GET /resources/${id}/forecast`);
+      const response = await api.get(`/resources/${id}/forecast`);
       return response.data;
     } catch (error) {
       console.error('❌ Error fetching resource forecast:', error.response?.data || error.message);
@@ -170,8 +170,8 @@ const resourcesAPI = {
   // Заказать ресурс
   order: async (id, quantity) => {
     try {
-      console.log(`📤 POST /api/resources/${id}/order`, { quantity });
-      const response = await api.post(`/api/resources/${id}/order`, { quantity });
+      console.log(`📤 POST /resources/${id}/order`, { quantity });
+      const response = await api.post(`/resources/${id}/order`, { quantity });
       return response.data;
     } catch (error) {
       console.error('❌ Error ordering resource:', error.response?.data || error.message);
@@ -182,8 +182,8 @@ const resourcesAPI = {
   // Получить поставщиков ресурса
   getSuppliers: async (id) => {
     try {
-      console.log(`📡 GET /api/resources/${id}/suppliers`);
-      const response = await api.get(`/api/resources/${id}/suppliers`);
+      console.log(`📡 GET /resources/${id}/suppliers`);
+      const response = await api.get(`/resources/${id}/suppliers`);
       return response.data;
     } catch (error) {
       console.error('❌ Error fetching resource suppliers:', error.response?.data || error.message);
@@ -194,8 +194,8 @@ const resourcesAPI = {
   // Массовое обновление ресурсов
   bulkUpdate: async (updates) => {
     try {
-      console.log('📤 PATCH /api/resources/bulk', updates);
-      const response = await api.patch('/api/resources/bulk', { updates });
+      console.log('📤 PATCH /resources/bulk', updates);
+      const response = await api.patch('/resources/bulk', { updates });
       return response.data;
     } catch (error) {
       console.error('❌ Error bulk updating resources:', error.response?.data || error.message);
@@ -206,8 +206,8 @@ const resourcesAPI = {
   // Экспорт ресурсов
   exportResources: async (format = 'csv') => {
     try {
-      console.log(`📡 GET /api/resources/export?format=${format}`);
-      const response = await api.get('/api/resources/export', {
+      console.log(`📡 GET /resources/export?format=${format}`);
+      const response = await api.get('/resources/export', {
         params: { format },
         responseType: 'blob'
       });
@@ -224,8 +224,8 @@ const resourcesAPI = {
       const formData = new FormData();
       formData.append('file', file);
       
-      console.log('📤 POST /api/resources/import');
-      const response = await api.post('/api/resources/import', formData, {
+      console.log('📤 POST /resources/import');
+      const response = await api.post('/resources/import', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

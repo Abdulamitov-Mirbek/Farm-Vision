@@ -5,8 +5,8 @@ const tasksAPI = {
   // Получить все задачи
   getAll: async (filters = {}) => {
     try {
-      console.log('📡 GET /api/tasks с фильтрами:', filters);
-      const response = await api.get('/api/tasks', { params: filters });
+      console.log('📡 GET /tasks с фильтрами:', filters);
+      const response = await api.get('/tasks', { params: filters });
       console.log('✅ Tasks fetched:', response.data);
       return response.data;
     } catch (error) {
@@ -18,8 +18,8 @@ const tasksAPI = {
   // Получить статистику
   getStats: async () => {
     try {
-      console.log('📡 GET /api/tasks/stats');
-      const response = await api.get('/api/tasks/stats');
+      console.log('📡 GET /tasks/stats');
+      const response = await api.get('/tasks/stats');
       console.log('✅ Tasks stats:', response.data);
       return response.data;
     } catch (error) {
@@ -31,8 +31,8 @@ const tasksAPI = {
   // Создать задачу
   create: async (taskData) => {
     try {
-      console.log('📤 POST /api/tasks с данными:', taskData);
-      const response = await api.post('/api/tasks', taskData);
+      console.log('📤 POST /tasks с данными:', taskData);
+      const response = await api.post('/tasks', taskData);
       console.log('✅ Task created:', response.data);
       return response.data;
     } catch (error) {
@@ -44,8 +44,8 @@ const tasksAPI = {
   // Получить задачу по ID
   getById: async (id) => {
     try {
-      console.log(`📡 GET /api/tasks/${id}`);
-      const response = await api.get(`/api/tasks/${id}`);
+      console.log(`📡 GET /tasks/${id}`);
+      const response = await api.get(`/tasks/${id}`);
       console.log('✅ Task fetched:', response.data);
       return response.data;
     } catch (error) {
@@ -57,8 +57,8 @@ const tasksAPI = {
   // Обновить задачу
   update: async (id, taskData) => {
     try {
-      console.log(`📤 PUT /api/tasks/${id}:`, taskData);
-      const response = await api.put(`/api/tasks/${id}`, taskData);
+      console.log(`📤 PUT /tasks/${id}:`, taskData);
+      const response = await api.put(`/tasks/${id}`, taskData);
       console.log('✅ Task updated:', response.data);
       return response.data;
     } catch (error) {
@@ -70,8 +70,8 @@ const tasksAPI = {
   // Удалить задачу
   delete: async (id) => {
     try {
-      console.log(`📤 DELETE /api/tasks/${id}`);
-      const response = await api.delete(`/api/tasks/${id}`);
+      console.log(`📤 DELETE /tasks/${id}`);
+      const response = await api.delete(`/tasks/${id}`);
       console.log('✅ Task deleted:', response.data);
       return response.data;
     } catch (error) {
@@ -83,8 +83,8 @@ const tasksAPI = {
   // Обновить статус задачи
   updateStatus: async (id, status) => {
     try {
-      console.log(`📤 PATCH /api/tasks/${id}/status:`, status);
-      const response = await api.patch(`/api/tasks/${id}/status`, { status });
+      console.log(`📤 PATCH /tasks/${id}/status:`, status);
+      const response = await api.patch(`/tasks/${id}/status`, { status });
       console.log('✅ Task status updated:', response.data);
       return response.data;
     } catch (error) {
@@ -96,8 +96,8 @@ const tasksAPI = {
   // Получить задачи по статусу
   getByStatus: async (status) => {
     try {
-      console.log(`📡 GET /api/tasks/status/${status}`);
-      const response = await api.get(`/api/tasks/status/${status}`);
+      console.log(`📡 GET /tasks/status/${status}`);
+      const response = await api.get(`/tasks/status/${status}`);
       return response.data;
     } catch (error) {
       console.error('❌ Error fetching tasks by status:', error.response?.data || error.message);
@@ -108,8 +108,8 @@ const tasksAPI = {
   // Получить задачи по приоритету
   getByPriority: async (priority) => {
     try {
-      console.log(`📡 GET /api/tasks/priority/${priority}`);
-      const response = await api.get(`/api/tasks/priority/${priority}`);
+      console.log(`📡 GET /tasks/priority/${priority}`);
+      const response = await api.get(`/tasks/priority/${priority}`);
       return response.data;
     } catch (error) {
       console.error('❌ Error fetching tasks by priority:', error.response?.data || error.message);
@@ -120,8 +120,8 @@ const tasksAPI = {
   // Получить задачи по назначенному сотруднику
   getByAssignee: async (userId) => {
     try {
-      console.log(`📡 GET /api/tasks/assignee/${userId}`);
-      const response = await api.get(`/api/tasks/assignee/${userId}`);
+      console.log(`📡 GET /tasks/assignee/${userId}`);
+      const response = await api.get(`/tasks/assignee/${userId}`);
       return response.data;
     } catch (error) {
       console.error('❌ Error fetching tasks by assignee:', error.response?.data || error.message);
@@ -132,8 +132,8 @@ const tasksAPI = {
   // Получить задачи по дате
   getByDate: async (date) => {
     try {
-      console.log(`📡 GET /api/tasks/date/${date}`);
-      const response = await api.get(`/api/tasks/date/${date}`);
+      console.log(`📡 GET /tasks/date/${date}`);
+      const response = await api.get(`/tasks/date/${date}`);
       return response.data;
     } catch (error) {
       console.error('❌ Error fetching tasks by date:', error.response?.data || error.message);
@@ -144,8 +144,8 @@ const tasksAPI = {
   // Получить просроченные задачи
   getOverdue: async () => {
     try {
-      console.log('📡 GET /api/tasks/overdue');
-      const response = await api.get('/api/tasks/overdue');
+      console.log('📡 GET /tasks/overdue');
+      const response = await api.get('/tasks/overdue');
       return response.data;
     } catch (error) {
       console.error('❌ Error fetching overdue tasks:', error.response?.data || error.message);
@@ -156,8 +156,8 @@ const tasksAPI = {
   // Получить задачи на сегодня
   getToday: async () => {
     try {
-      console.log('📡 GET /api/tasks/today');
-      const response = await api.get('/api/tasks/today');
+      console.log('📡 GET /tasks/today');
+      const response = await api.get('/tasks/today');
       return response.data;
     } catch (error) {
       console.error('❌ Error fetching today tasks:', error.response?.data || error.message);
@@ -168,8 +168,8 @@ const tasksAPI = {
   // Получить задачи на неделю
   getWeek: async (date) => {
     try {
-      console.log(`📡 GET /api/tasks/week?date=${date}`);
-      const response = await api.get('/api/tasks/week', {
+      console.log(`📡 GET /tasks/week?date=${date}`);
+      const response = await api.get('/tasks/week', {
         params: { date }
       });
       return response.data;
@@ -182,8 +182,8 @@ const tasksAPI = {
   // Назначить задачу
   assignTask: async (id, userId) => {
     try {
-      console.log(`📤 POST /api/tasks/${id}/assign`, { userId });
-      const response = await api.post(`/api/tasks/${id}/assign`, { userId });
+      console.log(`📤 POST /tasks/${id}/assign`, { userId });
+      const response = await api.post(`/tasks/${id}/assign`, { userId });
       return response.data;
     } catch (error) {
       console.error('❌ Error assigning task:', error.response?.data || error.message);
@@ -194,8 +194,8 @@ const tasksAPI = {
   // Добавить комментарий к задаче
   addComment: async (id, comment) => {
     try {
-      console.log(`📤 POST /api/tasks/${id}/comments`, { comment });
-      const response = await api.post(`/api/tasks/${id}/comments`, { comment });
+      console.log(`📤 POST /tasks/${id}/comments`, { comment });
+      const response = await api.post(`/tasks/${id}/comments`, { comment });
       return response.data;
     } catch (error) {
       console.error('❌ Error adding comment:', error.response?.data || error.message);
@@ -206,8 +206,8 @@ const tasksAPI = {
   // Получить комментарии к задаче
   getComments: async (id) => {
     try {
-      console.log(`📡 GET /api/tasks/${id}/comments`);
-      const response = await api.get(`/api/tasks/${id}/comments`);
+      console.log(`📡 GET /tasks/${id}/comments`);
+      const response = await api.get(`/tasks/${id}/comments`);
       return response.data;
     } catch (error) {
       console.error('❌ Error fetching comments:', error.response?.data || error.message);
@@ -221,8 +221,8 @@ const tasksAPI = {
       const formData = new FormData();
       formData.append('file', file);
       
-      console.log(`📤 POST /api/tasks/${id}/attachments`);
-      const response = await api.post(`/api/tasks/${id}/attachments`, formData, {
+      console.log(`📤 POST /tasks/${id}/attachments`);
+      const response = await api.post(`/tasks/${id}/attachments`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -237,8 +237,8 @@ const tasksAPI = {
   // Получить вложения задачи
   getAttachments: async (id) => {
     try {
-      console.log(`📡 GET /api/tasks/${id}/attachments`);
-      const response = await api.get(`/api/tasks/${id}/attachments`);
+      console.log(`📡 GET /tasks/${id}/attachments`);
+      const response = await api.get(`/tasks/${id}/attachments`);
       return response.data;
     } catch (error) {
       console.error('❌ Error fetching attachments:', error.response?.data || error.message);
@@ -249,8 +249,8 @@ const tasksAPI = {
   // Копировать задачу
   copyTask: async (id) => {
     try {
-      console.log(`📤 POST /api/tasks/${id}/copy`);
-      const response = await api.post(`/api/tasks/${id}/copy`);
+      console.log(`📤 POST /tasks/${id}/copy`);
+      const response = await api.post(`/tasks/${id}/copy`);
       return response.data;
     } catch (error) {
       console.error('❌ Error copying task:', error.response?.data || error.message);
@@ -261,8 +261,8 @@ const tasksAPI = {
   // Массовое обновление задач
   bulkUpdate: async (updates) => {
     try {
-      console.log('📤 PATCH /api/tasks/bulk', updates);
-      const response = await api.patch('/api/tasks/bulk', { updates });
+      console.log('📤 PATCH /tasks/bulk', updates);
+      const response = await api.patch('/tasks/bulk', { updates });
       return response.data;
     } catch (error) {
       console.error('❌ Error bulk updating tasks:', error.response?.data || error.message);
@@ -273,8 +273,8 @@ const tasksAPI = {
   // Экспорт задач
   exportTasks: async (format = 'csv') => {
     try {
-      console.log(`📡 GET /api/tasks/export?format=${format}`);
-      const response = await api.get('/api/tasks/export', {
+      console.log(`📡 GET /tasks/export?format=${format}`);
+      const response = await api.get('/tasks/export', {
         params: { format },
         responseType: 'blob'
       });
@@ -291,8 +291,8 @@ const tasksAPI = {
       const formData = new FormData();
       formData.append('file', file);
       
-      console.log('📤 POST /api/tasks/import');
-      const response = await api.post('/api/tasks/import', formData, {
+      console.log('📤 POST /tasks/import');
+      const response = await api.post('/tasks/import', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
